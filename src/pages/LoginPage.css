@@ -1,0 +1,118 @@
+/* Reset default styles */
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* Make html and body take the full height */
+    width: 100%;
+    /* Make html and body take the full width */
+    background-color: #000;
+    /* Black background */
+}
+
+/* Background and container */
+.login-page {
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Ensures it always covers the screen */
+    background-color: #000;
+    /* Black background */
+}
+
+/* Login box styling */
+.login-box {
+    background-color: #fff;
+    /* White login box */
+    width: 50%;
+    max-width: 300px;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    /* Stack children vertically */
+}
+
+/* Title */
+.login-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 30px;
+}
+
+/* Form input fields */
+.form-group {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #007bff;
+    /* Blue border on focus */
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Login button */
+.login-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+}
+
+/* Error Text Styling */
+.error-text {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Separator between email and username */
+.separator {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    margin: 10px 0;
+  }
+  
+  /* Info Icon Styling */
+  .info-icon {
+    text-align: center;
+    color: #555;
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  

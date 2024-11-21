@@ -9,13 +9,19 @@ const taskSlice = createSlice({
   },
   reducers: {
     addTask: (state, action) => {
-      state.currentTaskList.push(action.payload);
+      state.currentTaskList.push({
+        ...action.payload,
+        originalCountdown: action.payload.countdown,
+        countdown: action.payload.countdown,
+        state: 'pending',
+      });
     },
     activateTask: (state, action) => {
       const taskIndex = state.currentTaskList.findIndex((task) => task.id === action.payload);
       if (taskIndex !== -1) {
         const [task] = state.currentTaskList.splice(taskIndex, 1);
         task.state = 'active';
+        task.countdown = task.originalCountdown; // Copy originalCountdown to countdown
         state.activeTaskList.push(task);
       }
     },
@@ -24,31 +30,33 @@ const taskSlice = createSlice({
       if (taskIndex !== -1) {
         const [task] = state.activeTaskList.splice(taskIndex, 1);
         task.state = 'completed';
-        task.countdown = task.originalCountdown; // Retain the original countdown value
+        task.countdown = 0; // Set countdown to 0 on completion
         state.completedTaskList.push(task);
       }
     },
     restartTask: (state, action) => {
-        const taskIndex = state.completedTaskList.findIndex((task) => task.id === action.payload);
-        if (taskIndex !== -1) {
-          const [task] = state.completedTaskList.splice(taskIndex, 1);
-          task.state = 'pending';
-          task.countdown = task.originalCountdown; // Reset countdown
-          state.currentTaskList.push(task);
-        }
-      },
-      
+      const taskIndex = state.completedTaskList.findIndex((task) => task.id === action.payload);
+      if (taskIndex !== -1) {
+        const [task] = state.completedTaskList.splice(taskIndex, 1);
+        task.state = 'pending';
+        task.countdown = task.originalCountdown; // Reset countdown to originalCountdown
+        state.currentTaskList.push(task);
+      }
+    },
     decrementActiveTaskCountdown: (state) => {
-      const updatedActiveTasks = [];
-      state.activeTaskList.forEach((task) => {
+      state.activeTaskList = state.activeTaskList.map((task) => {
         if (task.countdown > 0) {
-          updatedActiveTasks.push({ ...task, countdown: task.countdown - 1 });
-        } else {
-          const completedTask = { ...task, state: 'completed', countdown: task.originalCountdown };
-          state.completedTaskList.push(completedTask);
+          return { ...task, countdown: task.countdown - 1 }; // Decrease countdown
         }
+        return { ...task, countdown: 0, state: 'completed' }; // Mark as completed when countdown reaches 0
       });
-      state.activeTaskList = updatedActiveTasks;
+
+      // Move completed tasks to completedTaskList
+      const completedTasks = state.activeTaskList.filter((task) => task.countdown === 0);
+      state.completedTaskList.push(...completedTasks);
+
+      // Keep only active tasks with countdown > 0
+      state.activeTaskList = state.activeTaskList.filter((task) => task.countdown > 0);
     },
   },
 });

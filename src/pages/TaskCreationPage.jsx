@@ -46,9 +46,14 @@ const TaskCreationPage = () => {
     );
 
     // Clear inputs
+    handleClear();
+  };
+
+  const handleClear = () => {
     setTaskName('');
     setTaskColor('#ffffff');
     setTaskCountdown('');
+    setError('');
   };
 
   const handleNext = () => {
@@ -97,6 +102,9 @@ const TaskCreationPage = () => {
           <div className="button-group">
             <button className="task-button" onClick={handleAddTask}>
               Add Task
+            </button>
+            <button className="clear-button" onClick={handleClear}>
+              Clear
             </button>
           </div>
         </div>

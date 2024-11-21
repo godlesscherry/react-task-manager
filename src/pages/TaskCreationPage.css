@@ -185,15 +185,49 @@
 
 /* Task Details */
 .task-details {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 2fr 2fr; /* Adjust the column widths as needed */
   align-items: center;
-  justify-content: space-between;
-  flex: 1;
-  padding: 10px;
-  border-radius: 5px;
-  margin-right: 10px;
+  gap: 10px; /* Add space between columns */
+  font-size: 14px; /* Adjust font size for better readability */
+  text-align: left; /* Align text to the left */
+}
+.task-details span {
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowed content */
+  text-overflow: ellipsis; /* Add ellipsis if content overflows */
+}
+.task-id {
+  font-weight: bold;
 }
 
+.task-name {
+  font-weight: bold;
+  text-align: left;
+}
+
+.task-countdown {
+  font-weight: normal;
+}
+
+.task-state {
+  color: #666; /* Muted color for the state */
+}
+.activate-button,
+.restart-button {
+  margin-left: auto; /* Align buttons to the right */
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background-color: #007bff;
+  color: white;
+}
+.activate-button:hover,
+.restart-button:hover {
+  background-color: #0056b3;
+}
 /* Delete Button */
 .delete-button {
   background-color: transparent;

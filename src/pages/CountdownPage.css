@@ -11,12 +11,12 @@
     gap: 20px;
   }
   
-  /* Username Box */
-  .username-box {
-    margin-bottom: 20px;
-    font-size: 18px;
+  /* Welcome Text */
+  .welcome-text {
+    font-size: 24px;
+    font-weight: bold;
     color: #fff;
-    text-align: center;
+    margin-bottom: 20px;
   }
   
   /* Task Container */
@@ -53,6 +53,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 300px;
+    overflow-y: auto; /* Add scroll for long lists */
   }
   
   /* Task Item Styling */
@@ -62,12 +64,11 @@
     justify-content: space-between;
     padding: 10px;
     border-radius: 8px;
-    border: 2px solid #000; /* Solid border */
+    border: 2px solid #000; /* Solid black border */
     color: #000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
   }
   
-  /* Completed Task Item Styling */
   .task-item.completed {
     color: #666; /* Lighter text for completed tasks */
     font-style: italic; /* Indicate completion */
@@ -99,5 +100,25 @@
   
   .complete-button:hover {
     background-color: #218838; /* Darker green on hover */
+  }
+  
+  /* Styling for Completed Tasks */
+  .completed-task-box .task-item {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: #ddd;
+  }
+  
+  /* Scrollbar Styling */
+  .task-list::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .task-list::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  
+  .task-list::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
   }
   

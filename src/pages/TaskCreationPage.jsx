@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './TaskCreationPage.css'; // Import the CSS file
 
 const TaskCreationPage = () => {
@@ -9,6 +10,7 @@ const TaskCreationPage = () => {
   const [taskPreview, setTaskPreview] = useState([]);
   const [error, setError] = useState('');
 
+  const navigate = useNavigate();
   const handleAddTask = () => {
     const errors = [];
     if (!taskName.trim()) {
@@ -58,8 +60,7 @@ const TaskCreationPage = () => {
   };
 
   const handleNext = () => {
-    alert('Proceeding to the next page!');
-    // Add logic to navigate to the next page or process tasks further
+    navigate('/countdown', { state: { taskList: taskPreview } }); // Pass taskPreview as state
   };
 
   return (
@@ -120,7 +121,6 @@ const TaskCreationPage = () => {
                 className="task-item"
                 style={{
                   backgroundColor: `${task.color}66`, // Background with 40% opacity
-                  borderColor: task.color, // Dynamic border
                 }}
               >
                 <div className="task-details">

@@ -30,7 +30,7 @@
 /* Create Task Box Styling */
 .create-task-box {
   background-color: #fff;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   flex: 1;
@@ -38,9 +38,10 @@
 }
 
 .create-task-box h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
+  font-size: 24px;
+  margin-bottom: 20px;
   color: #000;
+  font-weight: bold;
 }
 
 /* Form Group Styling */
@@ -50,6 +51,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  gap: 5px;
 }
 
 .form-group.color-group {
@@ -71,22 +73,32 @@
 
 /* Text and Number Inputs */
 .form-input {
-  width: 90%;
-  padding: 10px;
-  border: 1px solid #333;
+  width: calc(100% - 20px); /* Adjust to maintain consistent spacing */
+  padding: 12px;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #fff; /* White background */
-  color: #000; /* Black text */
+  background-color: #f9f9f9; /* Light background for inputs */
+  color: #333; /* Dark text */
   font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+  box-sizing: border-box; /* Ensure padding is included in width */
+}ransition: border-color 0.3s;
+}
+
+.form-input:focus {
+  border-color: #007bff; /* Blue border on focus */
 }
 
 /* Color Input Styling */
 .color-input {
   width: 60px;
-  height: 30px;
-  border: none;
+  height: 40px;
+  border: 1px solid #ddd;
   border-radius: 5px;
   cursor: pointer;
+  outline: none;
+  background-color: #fff;
 }
 
 /* Color Name Styling */
@@ -97,28 +109,38 @@
 }
 
 /* Buttons */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Spacing between buttons */
+  margin-top: 20px;
+}
+
 .task-button,
 .clear-button {
   width: 45%;
-  padding: 10px;
+  padding: 12px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
   transition: background-color 0.3s;
+  text-align: center;
 }
 
 .clear-button {
-  background-color: #ff4d4d;
+  background-color: #ff4d4d; /* Red for Clear button */
 }
 
 .task-button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
 .clear-button:hover {
-  background-color: #cc0000;
+  background-color: #cc0000; /* Darker red on hover */
 }
 
 /* Task Preview Box Styling */
@@ -186,6 +208,7 @@
 .delete-button:hover {
   color: #cc0000; /* Darker red on hover */
 }
+
 /* Next Button Styling */
 .next-button {
   position: absolute; /* Positioning at the bottom-right */
@@ -205,12 +228,28 @@
 .next-button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
+/* Go Back Button Styling */
+.go-back-button {
+  position: relative;
+  bottom: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  margin-top: 100px;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
 
-
-
+.go-back-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
 /* Error Text Styling */
 .error-text {
   color: red;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 5px;
 }

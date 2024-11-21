@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import './CountdownPage.css'; // Import the CSS file
+import { useNavigate, useLocation } from 'react-router-dom';
+import './CountdownPage.css';
 
-const CountdownPage = ({ previewTaskList }) => {
-  const [currentTaskList, setCurrentTaskList] = useState([...previewTaskList]);
+const CountdownPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const initialTaskList = location.state?.taskList || []; // Retrieve the passed task list
+
+  const [currentTaskList, setCurrentTaskList] = useState(initialTaskList);
   const [completedTaskList, setCompletedTaskList] = useState([]);
 
   const handleTaskCompletion = (taskId) => {
     const completedTask = currentTaskList.find((task) => task.id === taskId);
     setCurrentTaskList((prev) => prev.filter((task) => task.id !== taskId));
     setCompletedTaskList((prev) => [...prev, completedTask]);
+  };
+
+  const handleRestartTask = (taskId) => {
+    const restartedTask = completedTaskList.find((task) => task.id === taskId);
+    setCompletedTaskList((prev) => prev.filter((task) => task.id !== taskId));
+    setCurrentTaskList((prev) => [...prev, restartedTask]);
   };
 
   useEffect(() => {
@@ -28,13 +39,15 @@ const CountdownPage = ({ previewTaskList }) => {
     return () => clearInterval(countdownInterval);
   }, [currentTaskList]);
 
+  const handleGoBack = () => {
+    navigate(-1); // Navigate back to the previous page
+  };
+
   return (
     <div className="countdown-page">
-      <div className="username-box">
-        <span>Welcome, User</span>
-      </div>
+      <h1 className="welcome-text">Welcome, Guest!</h1>
       <div className="task-container">
-        {/* Current Task List */}
+        {/* Current Task List Section */}
         <div className="current-task-box">
           <h2>Current Task List</h2>
           <ul className="task-list">
@@ -43,8 +56,7 @@ const CountdownPage = ({ previewTaskList }) => {
                 key={task.id}
                 className="task-item"
                 style={{
-                  backgroundColor: `${task.color}66`,
-                  borderColor: task.color,
+                  backgroundColor: `${task.color}66`, // 40% opacity
                 }}
               >
                 <div className="task-details">
@@ -62,9 +74,10 @@ const CountdownPage = ({ previewTaskList }) => {
             ))}
           </ul>
         </div>
-        {/* Completed Task List */}
+
+        {/* Completed Task List Section */}
         <div className="completed-task-box">
-          <h2>Completed Task List</h2>
+          <h2>Completed Tasks</h2>
           <ul className="task-list">
             {completedTaskList.map((task) => (
               <li
@@ -72,7 +85,6 @@ const CountdownPage = ({ previewTaskList }) => {
                 className="task-item completed"
                 style={{
                   backgroundColor: `${task.color}88`, // Higher opacity for completed
-                  borderColor: task.color,
                 }}
               >
                 <div className="task-details">
@@ -80,11 +92,21 @@ const CountdownPage = ({ previewTaskList }) => {
                   <span className="task-name">{task.name}</span>
                   <span className="task-status">Completed</span>
                 </div>
+                <button
+                  className="restart-button"
+                  onClick={() => handleRestartTask(task.id)}
+                >
+                  Restart
+                </button>
               </li>
             ))}
           </ul>
         </div>
       </div>
+      {/* Go Back Button */}
+      <button className="go-back-button" onClick={handleGoBack}>
+        Go Back
+      </button>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask } from '../store/taskSlice'; // Import Redux action
+import { addTask, deleteTask } from '../store/taskSlice'; // Import Redux action
 import { useNavigate } from 'react-router-dom';
 import './TaskCreationPage.css'; // Import the CSS file
 
@@ -58,6 +58,10 @@ const TaskCreationPage = () => {
 
   const handleNext = () => {
     navigate('/countdown'); // Navigate to CountdownPage
+  };
+
+  const handleDeleteTask = (taskId) => {
+    dispatch(deleteTask(taskId));
   };
 
   return (
@@ -125,6 +129,14 @@ const TaskCreationPage = () => {
                   <span className="task-countdown">Countdown: {task.countdown}s</span>
                   <span className="task-state">State: {task.state}</span>
                 </div>
+                {task.state === 'pending' && (
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDeleteTask(task.id)}
+                  >
+                    Delete
+                  </button>
+                )}
               </li>
             ))}
           </ul>

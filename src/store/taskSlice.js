@@ -15,6 +15,9 @@ const taskSlice = createSlice({
         state: 'pending',
       });
     },
+    deleteTask: (state, action) => {
+        state.currentTaskList = state.currentTaskList.filter((task) => task.id !== action.payload);
+      },
     activateTask: (state, action) => {
       const taskIndex = state.currentTaskList.findIndex((task) => task.id === action.payload);
       if (taskIndex !== -1) {
@@ -59,6 +62,7 @@ const taskSlice = createSlice({
 
 export const {
   addTask,
+  deleteTask,
   activateTask,
   completeTask,
   restartTask,

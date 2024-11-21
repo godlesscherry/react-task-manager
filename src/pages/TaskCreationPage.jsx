@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask } from '../store/taskSlice'; // Import Redux action
+import { useNavigate } from 'react-router-dom';
 import './TaskCreationPage.css'; // Import the CSS file
 
 const TaskCreationPage = () => {
-  const location = useLocation();
-  const userIdentifier = location.state?.userIdentifier || 'Guest'; // Retrieve passed username or email
-  const [username] = useState(localStorage.getItem('username') || 'Guest');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const taskPreview = useSelector((state) => state.tasks.currentTaskList); // Get current tasks from Redux
+
   const [taskName, setTaskName] = useState('');
   const [taskColor, setTaskColor] = useState('#ffffff'); // Default color
   const [taskCountdown, setTaskCountdown] = useState(''); // Countdown timer
-  const [taskPreview, setTaskPreview] = useState([]);
   const [error, setError] = useState('');
-
-  const navigate = useNavigate();
 
   const handleAddTask = () => {
     const errors = [];
@@ -33,31 +34,31 @@ const TaskCreationPage = () => {
 
     setError('');
 
-    // Add task to preview with default state
-    setTaskPreview((prev) => [
-      ...prev,
-      { id: prev.length + 1, name: taskName, color: taskColor, countdown: taskCountdown, state: 'pending' },
-    ]);
+    // Add task to Redux store
+    dispatch(
+      addTask({
+        id: Date.now(), // Unique ID for the task
+        name: taskName,
+        color: taskColor,
+        countdown: parseInt(taskCountdown, 10),
+        state: 'pending',
+      })
+    );
 
     // Clear inputs
-    clearInputs();
-  };
-
-  const clearInputs = () => {
     setTaskName('');
-    setTaskColor('#ffffff'); // Reset to default
+    setTaskColor('#ffffff');
     setTaskCountdown('');
-    setError('');
   };
 
   const handleNext = () => {
-    navigate('/countdown', { state: { taskList: taskPreview } }); // Pass taskPreview as state
+    navigate('/countdown'); // Navigate to CountdownPage
   };
 
   return (
     <div className="task-creation-page">
       <div className="username-box">
-        <span>Welcome, {username}</span>
+        <span>Welcome to Task Manager</span>
       </div>
       <div className="task-container">
         <div className="create-task-box">
@@ -96,9 +97,6 @@ const TaskCreationPage = () => {
           <div className="button-group">
             <button className="task-button" onClick={handleAddTask}>
               Add Task
-            </button>
-            <button className="clear-button" onClick={clearInputs}>
-              Clear
             </button>
           </div>
         </div>

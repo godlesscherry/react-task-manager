@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import {useLocation} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './TaskCreationPage.css'; // Import the CSS file
 
 const TaskCreationPage = () => {
+  const location = useLocation();
+  const userIdentifier = location.state?.userIdentifier || 'Guest'; // Retrieve passed username or email
   const [username] = useState(localStorage.getItem('username') || 'Guest');
   const [taskName, setTaskName] = useState('');
   const [taskColor, setTaskColor] = useState('#ffffff'); // Default color

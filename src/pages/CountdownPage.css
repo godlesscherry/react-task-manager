@@ -29,6 +29,7 @@
   
   /* Current Task Box */
   .current-task-box,
+  .active-task-box,
   .completed-task-box {
     background-color: #fff;
     padding: 20px;
@@ -39,6 +40,7 @@
   }
   
   .current-task-box h2,
+  .active-task-box h2,
   .completed-task-box h2 {
     font-size: 20px;
     margin-bottom: 15px;
@@ -73,6 +75,10 @@
     color: #666; /* Lighter text for completed tasks */
     font-style: italic; /* Indicate completion */
   }
+  .task-item.active {
+    background-color: rgba(0, 123, 255, 0.2); /* Light blue background */
+    border: 2px solid #007bff; /* Blue border for active tasks */
+  }
   
   /* Task Details */
   .task-details {
@@ -96,6 +102,22 @@
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s;
+  }
+  /* Restart Button for Completed Tasks */
+.restart-button {
+    background-color: #007bff; /* Blue background */
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .restart-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
   }
   
   .complete-button:hover {

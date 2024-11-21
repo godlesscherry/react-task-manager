@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './LoginPage.css'; // Import the CSS file
 
 const LoginPage = () => {
@@ -6,11 +7,11 @@ const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); // Initialize navigate function
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Email validation
   const validateUsername = (username) =>
     /^[a-z](?=.*[0-9])[a-z0-9]{5,11}$/.test(username);
-  
 
   const handleLogin = () => {
     const newErrors = {};
@@ -35,12 +36,10 @@ const LoginPage = () => {
 
     setErrors(newErrors);
 
-    // If no errors, proceed with login
+    // If no errors, navigate to TaskCreationPage
     if (Object.keys(newErrors).length === 0) {
-      console.log('Email:', email || 'N/A');
-      console.log('Username:', username || 'N/A');
-      console.log('Password:', password);
-      // Add your login logic here
+      const userIdentifier = email.trim() ? email : username;
+      navigate('/task-creation', { state: { userIdentifier } }); // Pass userIdentifier as state
     }
   };
 
@@ -49,19 +48,17 @@ const LoginPage = () => {
       <div className="login-box">
         <h1 className="login-title">Log in</h1>
         {errors.general && <p className="error-text">{errors.general}</p>}
-        
-          <input
-            type="email"
-            placeholder="Email ID"
-            className="form-input"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setUsername(''); // Clear username if email is being entered
-            }}
-          />
-          {errors.email && <p className="error-text">{errors.email}</p>}
-        
+        <input
+          type="email"
+          placeholder="Email ID"
+          className="form-input"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setUsername(''); // Clear username if email is being entered
+          }}
+        />
+        {errors.email && <p className="error-text">{errors.email}</p>}
         <div className="separator">--------------- or ---------------</div>
         <div className="form-group">
           <input

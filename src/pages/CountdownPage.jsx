@@ -43,7 +43,7 @@ const CountdownPage = () => {
                   <span className="task-id">ID: {task.id}</span>
                   <span className="task-name">Task Name: {task.name}</span>
                   <span className="task-original-countdown">
-                    Original: {task.originalCountdown}s
+                    Countdown: {task.originalCountdown}s
                   </span>
                   <span className="task-countdown">Current: {task.countdown}s</span>
                   <span className="task-state">State: {task.state}</span>
@@ -68,7 +68,7 @@ const CountdownPage = () => {
                   <span className="task-id">ID: {task.id}</span>
                   <span className="task-name">Task Name: {task.name}</span>
                   <span className="task-original-countdown">
-                    Original: {task.originalCountdown}s
+                    Countdown: {task.originalCountdown}s
                   </span>
                   <span className="task-countdown">Current: {task.countdown}s</span>
                   <span className="task-state">State: {task.state}</span>

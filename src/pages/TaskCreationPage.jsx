@@ -121,8 +121,8 @@ const TaskCreationPage = () => {
               >
                 <div className="task-details">
                   <span className="task-id">ID: {task.id}</span>
-                  <span className="task-name">{task.name}</span>
-                  <span className="task-countdown">{task.countdown}s</span>
+                  <span className="task-name">Task Name: {task.name}</span>
+                  <span className="task-countdown">Countdown: {task.countdown}s</span>
                   <span className="task-state">State: {task.state}</span>
                 </div>
               </li>

@@ -6,7 +6,6 @@ import {
   restartTask,
   decrementActiveTaskCountdown,
   selectCurrentTasks,
-  selectActiveTasks,
   selectCompletedTasks,
 } from '../store/taskSlice';
 import './CountdownPage.css';
@@ -16,7 +15,6 @@ const CountdownPage = () => {
   const dispatch = useDispatch();
 
   const currentTaskList = useSelector(selectCurrentTasks);
-  const activeTaskList = useSelector(selectActiveTasks);
   const completedTaskList = useSelector(selectCompletedTasks);
 
   useEffect(() => {
@@ -50,29 +48,11 @@ const CountdownPage = () => {
                   <span className="task-countdown">Current: {task.countdown}s</span>
                   <span className="task-state">State: {task.state}</span>
                 </div>
-                <button className="activate-button" onClick={() => dispatch(activateTask(task.id))}>
-                  Activate
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Active Task List */}
-        <div className="active-task-box">
-          <h2>Active Tasks</h2>
-          <ul className="task-list">
-            {activeTaskList.map((task) => (
-              <li key={task.id} className="task-item active" style={{ backgroundColor: `${task.color}66` }}>
-                <div className="task-details">
-                  <span className="task-id">ID: {task.id}</span>
-                  <span className="task-name">Task Name: {task.name}</span>
-                  <span className="task-original-countdown">
-                    Original: {task.originalCountdown}s
-                  </span>
-                  <span className="task-countdown">Current: {task.countdown}s</span>
-                  <span className="task-state">State: {task.state}</span>
-                </div>
+                {task.state === 'pending' && (
+                  <button className="activate-button" onClick={() => dispatch(activateTask(task.id))}>
+                    Activate
+                  </button>
+                )}
               </li>
             ))}
           </ul>
@@ -90,9 +70,7 @@ const CountdownPage = () => {
                   <span className="task-original-countdown">
                     Original: {task.originalCountdown}s
                   </span>
-                  <span className="task-countdown">
-                    Current: {task.countdown}s
-                  </span>
+                  <span className="task-countdown">Current: {task.countdown}s</span>
                   <span className="task-state">State: {task.state}</span>
                 </div>
                 <button className="restart-button" onClick={() => dispatch(restartTask(task.id))}>

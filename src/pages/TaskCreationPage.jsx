@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import {useLocation} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './TaskCreationPage.css'; // Import the CSS file
 
 const TaskCreationPage = () => {
@@ -14,6 +13,7 @@ const TaskCreationPage = () => {
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
+
   const handleAddTask = () => {
     const errors = [];
     if (!taskName.trim()) {
@@ -33,10 +33,10 @@ const TaskCreationPage = () => {
 
     setError('');
 
-    // Add task to preview
+    // Add task to preview with default state
     setTaskPreview((prev) => [
       ...prev,
-      { id: prev.length + 1, name: taskName, color: taskColor, countdown: taskCountdown },
+      { id: prev.length + 1, name: taskName, color: taskColor, countdown: taskCountdown, state: 'pending' },
     ]);
 
     // Clear inputs
@@ -48,18 +48,6 @@ const TaskCreationPage = () => {
     setTaskColor('#ffffff'); // Reset to default
     setTaskCountdown('');
     setError('');
-  };
-
-  const getColorName = (color) => {
-    // Add simple color-to-name mapping
-    const colorNames = {
-      '#ffffff': 'White',
-      '#000000': 'Black',
-      '#ff0000': 'Red',
-      '#00ff00': 'Green',
-      '#0000ff': 'Blue',
-    };
-    return colorNames[color.toLowerCase()] || color;
   };
 
   const handleNext = () => {
@@ -93,7 +81,6 @@ const TaskCreationPage = () => {
               onChange={(e) => setTaskColor(e.target.value)}
               required
             />
-            <span className="color-name">{getColorName(taskColor)}</span>
           </div>
           <div className="form-group">
             <input
@@ -130,15 +117,8 @@ const TaskCreationPage = () => {
                   <span className="task-id">ID: {task.id}</span>
                   <span className="task-name">{task.name}</span>
                   <span className="task-countdown">{task.countdown}s</span>
+                  <span className="task-state">State: {task.state}</span>
                 </div>
-                <button
-                  className="delete-button"
-                  onClick={() =>
-                    setTaskPreview((prev) => prev.filter((t) => t.id !== task.id))
-                  }
-                >
-                  Delete
-                </button>
               </li>
             ))}
           </ul>

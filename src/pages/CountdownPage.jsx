@@ -11,6 +11,7 @@ const CountdownPage = () => {
     initialTaskList.map((task) => ({
       ...task,
       originalCountdown: task.countdown, // Store original countdown
+      state: 'pending', // Initialize state as 'pending'
     }))
   );
   const [activeTaskList, setActiveTaskList] = useState([]);
@@ -19,7 +20,7 @@ const CountdownPage = () => {
   const handleTaskActivation = (taskId) => {
     const taskToActivate = currentTaskList.find((task) => task.id === taskId);
     setCurrentTaskList((prev) => prev.filter((task) => task.id !== taskId));
-    setActiveTaskList((prev) => [...prev, taskToActivate]);
+    setActiveTaskList((prev) => [...prev, { ...taskToActivate, state: 'active' }]);
   };
 
   const handleRestartTask = (taskId) => {
@@ -27,7 +28,7 @@ const CountdownPage = () => {
     setCompletedTaskList((prev) => prev.filter((task) => task.id !== taskId));
     setCurrentTaskList((prev) => [
       ...prev,
-      { ...restartedTask, countdown: restartedTask.originalCountdown },
+      { ...restartedTask, countdown: restartedTask.originalCountdown, state: 'pending' },
     ]);
   };
 
@@ -38,11 +39,9 @@ const CountdownPage = () => {
           if (task.countdown > 0) {
             return { ...task, countdown: task.countdown - 1 };
           } else {
-            const completedTask = { ...task };
+            const completedTask = { ...task, state: 'completed' };
             setCompletedTaskList((prevCompleted) => [
-              ...prevCompleted.filter(
-                (t) => t.id !== completedTask.id
-              ), // Remove duplicates
+              ...prevCompleted.filter((t) => t.id !== completedTask.id), // Remove duplicates
               completedTask,
             ]);
             return null; // Remove the task from the active list
@@ -67,24 +66,14 @@ const CountdownPage = () => {
           <h2>Current Task List</h2>
           <ul className="task-list">
             {currentTaskList.map((task) => (
-              <li
-                key={task.id}
-                className="task-item"
-                style={{
-                  backgroundColor: `${task.color}66`, // 40% opacity
-                }}
-              >
+              <li key={task.id} className="task-item" style={{ backgroundColor: `${task.color}66` }}>
                 <div className="task-details">
                   <span className="task-id">ID: {task.id}</span>
                   <span className="task-name">{task.name}</span>
-                  <span className="task-countdown">
-                    {task.originalCountdown}s
-                  </span>
+                  <span className="task-countdown">{task.countdown}s</span> {/* Show countdown */}
+                  <span className="task-state">State: {task.state}</span>
                 </div>
-                <button
-                  className="activate-button"
-                  onClick={() => handleTaskActivation(task.id)}
-                >
+                <button className="activate-button" onClick={() => handleTaskActivation(task.id)}>
                   Activate
                 </button>
               </li>
@@ -97,17 +86,12 @@ const CountdownPage = () => {
           <h2>Active Tasks</h2>
           <ul className="task-list">
             {activeTaskList.map((task) => (
-              <li
-                key={task.id}
-                className="task-item active"
-                style={{
-                  backgroundColor: `${task.color}66`, // 40% opacity
-                }}
-              >
+              <li key={task.id} className="task-item active" style={{ backgroundColor: `${task.color}66` }}>
                 <div className="task-details">
                   <span className="task-id">ID: {task.id}</span>
                   <span className="task-name">{task.name}</span>
-                  <span className="task-countdown">{task.countdown}s</span>
+                  <span className="task-countdown">{task.countdown}s</span> {/* Countdown updated every second */}
+                  <span className="task-state">State: {task.state}</span>
                 </div>
               </li>
             ))}
@@ -119,24 +103,14 @@ const CountdownPage = () => {
           <h2>Completed Tasks</h2>
           <ul className="task-list">
             {completedTaskList.map((task) => (
-              <li
-                key={task.id}
-                className="task-item completed"
-                style={{
-                  backgroundColor: `${task.color}88`, // Higher opacity for completed
-                }}
-              >
+              <li key={task.id} className="task-item completed" style={{ backgroundColor: `${task.color}88` }}>
                 <div className="task-details">
                   <span className="task-id">ID: {task.id}</span>
                   <span className="task-name">{task.name}</span>
-                  <span className="task-original-countdown">
-                    {task.originalCountdown}s
-                  </span>
+                  <span className="task-original-countdown">{task.originalCountdown}s</span>
+                  <span className="task-state">State: {task.state}</span>
                 </div>
-                <button
-                  className="restart-button"
-                  onClick={() => handleRestartTask(task.id)}
-                >
+                <button className="restart-button" onClick={() => handleRestartTask(task.id)}>
                   Restart
                 </button>
               </li>
@@ -144,7 +118,6 @@ const CountdownPage = () => {
           </ul>
         </div>
       </div>
-      {/* Go Back Button */}
       <button className="go-back-button" onClick={handleGoBack}>
         Go Back
       </button>

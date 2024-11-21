@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './LoginPage.css'; // Import the CSS file
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUserIdentifier } from '../store/userSlice'; // Import Redux action
+import './LoginPage.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
+  const dispatch = useDispatch(); // Initialize Redux dispatch
 
-  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Email validation
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validateUsername = (username) =>
     /^[a-z](?=.*[0-9])[a-z0-9]{5,11}$/.test(username);
 
@@ -36,10 +39,15 @@ const LoginPage = () => {
 
     setErrors(newErrors);
 
-    // If no errors, navigate to TaskCreationPage
+    // If no errors, dispatch userIdentifier to Redux and navigate to TaskCreationPage
     if (Object.keys(newErrors).length === 0) {
       const userIdentifier = email.trim() ? email : username;
-      navigate('/task-creation', { state: { userIdentifier } }); // Pass userIdentifier as state
+
+      // Dispatch to Redux
+      dispatch(setUserIdentifier(userIdentifier));
+
+      // Navigate to TaskCreationPage
+      navigate('/task-creation');
     }
   };
 
@@ -86,9 +94,7 @@ const LoginPage = () => {
         <button className="login-button" onClick={handleLogin}>
           Log In
         </button>
-        <div className="info-icon">
-          ℹ️ Login with your email id or username
-        </div>
+        <div className="info-icon">ℹ️ Login with your email id or username</div>
       </div>
     </div>
   );

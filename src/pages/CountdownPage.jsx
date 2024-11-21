@@ -8,12 +8,13 @@ import {
   selectCurrentTasks,
   selectCompletedTasks,
 } from '../store/taskSlice';
+import { selectUserIdentifier } from '../store/userSlice'; // Import user selector
 import './CountdownPage.css';
 
 const CountdownPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const userIdentifier = useSelector(selectUserIdentifier);
   const currentTaskList = useSelector(selectCurrentTasks);
   const completedTaskList = useSelector(selectCompletedTasks);
 
@@ -31,7 +32,7 @@ const CountdownPage = () => {
 
   return (
     <div className="countdown-page">
-      <h1 className="welcome-text">Welcome, Guest!</h1>
+      <h1 className="welcome-text">Welcome, {userIdentifier || 'Guest'}!</h1>
       <div className="task-container">
         {/* Current Task List */}
         <div className="current-task-box">

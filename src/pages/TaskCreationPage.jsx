@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask, deleteTask } from '../store/taskSlice'; // Import Redux action
+import { selectUserIdentifier } from '../store/userSlice'; // Import user selector
 import { useNavigate } from 'react-router-dom';
 import './TaskCreationPage.css'; // Import the CSS file
 
@@ -9,6 +10,7 @@ const TaskCreationPage = () => {
   const navigate = useNavigate();
 
   const taskPreview = useSelector((state) => state.tasks.currentTaskList); // Get current tasks from Redux
+  const userIdentifier = useSelector(selectUserIdentifier);
 
   const [taskName, setTaskName] = useState('');
   const [taskColor, setTaskColor] = useState('#ffffff'); // Default color
@@ -67,7 +69,7 @@ const TaskCreationPage = () => {
   return (
     <div className="task-creation-page">
       <div className="username-box">
-        <span>Welcome to Task Manager</span>
+        <span>Welcome, {userIdentifier || 'Guest'}!</span>
       </div>
       <div className="task-container">
         <div className="create-task-box">

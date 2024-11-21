@@ -43,10 +43,33 @@
   color: #000;
 }
 
+/* Form Group Styling */
 .form-group {
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
 }
 
+.form-group.color-group {
+  flex-direction: row;
+  align-items: center;
+}
+
+/* Form Labels */
+.form-label {
+  font-size: 14px;
+  color: #000; /* Black text for labels */
+  margin-bottom: 5px;
+}
+
+.form-group.color-group .form-label {
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+/* Text and Number Inputs */
 .form-input {
   width: 90%;
   padding: 10px;
@@ -54,53 +77,30 @@
   border-radius: 5px;
   background-color: #fff; /* White background */
   color: #000; /* Black text */
+  font-size: 16px;
 }
 
-.form-input::placeholder {
-  color: #666; /* Optional: Grey color for placeholder text */
-}
-
-./* Form group for color input */
-.color-group {
-  display: flex;
-  align-items: center; /* Align label and input vertically */
-  gap: 10px; /* Space between the label and input */
-}
-
-.form-label {
-  font-size: 14px;
-  color: #000; /* Black text for labels */
-  text-align: left;
-  white-space: nowrap; /* Prevent label wrapping */
-}
-
-/* Color Input with Larger Size and Rectangle Display */
+/* Color Input Styling */
 .color-input {
-  width: 60px; /* Increase width */
-  height: 30px; /* Increase height */
-  border: 1px solid #333; /* Add a border for better visibility */
-  border-radius: 5px; /* Optional: Rounded edges */
-  background-color: #fff; /* Default background */
-  cursor: pointer; /* Pointer cursor for better UX */
-  outline: none; /* Remove default outline */
-  appearance: none; /* Remove default browser styling */
+  width: 60px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.color-input::-webkit-color-swatch {
-  border: none; /* Remove swatch border */
-  border-radius: 5px; /* Match other styling */
+/* Color Name Styling */
+.color-name {
+  font-size: 14px;
+  color: #000;
+  margin-left: 10px;
 }
 
-.color-input::-webkit-color-swatch-wrapper {
-  padding: 0;
-  margin: 0;
-}
-
+/* Buttons */
 .task-button,
 .clear-button {
-  width: 40%;
+  width: 45%;
   padding: 10px;
-  margin: 5px;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -117,6 +117,10 @@
   background-color: #0056b3;
 }
 
+.clear-button:hover {
+  background-color: #cc0000;
+}
+
 /* Task Preview Box Styling */
 .task-preview-box {
   background-color: #fff;
@@ -125,6 +129,7 @@
   flex: 1;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   text-align: center;
+  position: relative; /* For positioning the Next button */
 }
 
 .task-preview-box h2 {
@@ -133,21 +138,75 @@
   color: #000;
 }
 
+/* Task List Styling */
 .task-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
+/* Task Item Styling */
 .task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  text-align: center;
-  background-color: #333;
-  color: #fff;
-  font-weight: bold;
+  border-radius: 8px;
+  border: 2px solid #000; /* Solid black border */
+  color: #000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent */
 }
+
+/* Task Details */
+.task-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Delete Button */
+.delete-button {
+  background-color: transparent;
+  border: none;
+  color: #ff4d4d; /* Red text */
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.delete-button:hover {
+  color: #cc0000; /* Darker red on hover */
+}
+/* Next Button Styling */
+.next-button {
+  position: absolute; /* Positioning at the bottom-right */
+  bottom: 10px;
+  right: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.next-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+
 
 /* Error Text Styling */
 .error-text {

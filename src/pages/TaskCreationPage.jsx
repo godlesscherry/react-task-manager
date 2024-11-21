@@ -10,12 +10,19 @@ const TaskCreationPage = () => {
   const [error, setError] = useState('');
 
   const handleAddTask = () => {
+    const errors = [];
     if (!taskName.trim()) {
-      setError('Task name is required');
-      return;
+      errors.push('Task name is required.');
     }
     if (!taskCountdown.trim() || isNaN(taskCountdown) || taskCountdown <= 0) {
-      setError('Countdown must be a positive number');
+      errors.push('Countdown must be a positive number.');
+    }
+    if (!taskColor.trim()) {
+      errors.push('Background color is required.');
+    }
+
+    if (errors.length > 0) {
+      setError(errors.join(' '));
       return;
     }
 
@@ -38,6 +45,23 @@ const TaskCreationPage = () => {
     setError('');
   };
 
+  const getColorName = (color) => {
+    // Add simple color-to-name mapping
+    const colorNames = {
+      '#ffffff': 'White',
+      '#000000': 'Black',
+      '#ff0000': 'Red',
+      '#00ff00': 'Green',
+      '#0000ff': 'Blue',
+    };
+    return colorNames[color.toLowerCase()] || color;
+  };
+
+  const handleNext = () => {
+    alert('Proceeding to the next page!');
+    // Add logic to navigate to the next page or process tasks further
+  };
+
   return (
     <div className="task-creation-page">
       <div className="username-box">
@@ -53,6 +77,7 @@ const TaskCreationPage = () => {
               className="form-input"
               value={taskName}
               onChange={(e) => setTaskName(e.target.value)}
+              required
             />
           </div>
           <div className="form-group color-group">
@@ -62,7 +87,9 @@ const TaskCreationPage = () => {
               className="color-input"
               value={taskColor}
               onChange={(e) => setTaskColor(e.target.value)}
+              required
             />
+            <span className="color-name">{getColorName(taskColor)}</span>
           </div>
           <div className="form-group">
             <input
@@ -71,6 +98,7 @@ const TaskCreationPage = () => {
               className="form-input"
               value={taskCountdown}
               onChange={(e) => setTaskCountdown(e.target.value)}
+              required
             />
           </div>
           {error && <p className="error-text">{error}</p>}
@@ -90,12 +118,30 @@ const TaskCreationPage = () => {
               <li
                 key={task.id}
                 className="task-item"
-                style={{ backgroundColor: task.color }}
+                style={{
+                  backgroundColor: `${task.color}66`, // Background with 40% opacity
+                  borderColor: task.color, // Dynamic border
+                }}
               >
-                {task.name} - {task.countdown}s
+                <div className="task-details">
+                  <span className="task-id">ID: {task.id}</span>
+                  <span className="task-name">{task.name}</span>
+                  <span className="task-countdown">{task.countdown}s</span>
+                </div>
+                <button
+                  className="delete-button"
+                  onClick={() =>
+                    setTaskPreview((prev) => prev.filter((t) => t.id !== task.id))
+                  }
+                >
+                  Delete
+                </button>
               </li>
             ))}
           </ul>
+          <button className="next-button" onClick={handleNext}>
+            Next
+          </button>
         </div>
       </div>
     </div>

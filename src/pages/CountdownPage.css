@@ -1,0 +1,103 @@
+/* Full-page layout */
+.countdown-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    min-height: 100vh;
+    background-color: #000; /* Black background */
+    color: #fff;
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  /* Username Box */
+  .username-box {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+  }
+  
+  /* Task Container */
+  .task-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    gap: 20px;
+  }
+  
+  /* Current Task Box */
+  .current-task-box,
+  .completed-task-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  .current-task-box h2,
+  .completed-task-box h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #000;
+  }
+  
+  /* Task List Styling */
+  .task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Task Item Styling */
+  .task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #000; /* Solid border */
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  }
+  
+  /* Completed Task Item Styling */
+  .task-item.completed {
+    color: #666; /* Lighter text for completed tasks */
+    font-style: italic; /* Indicate completion */
+  }
+  
+  /* Task Details */
+  .task-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  /* Complete Button */
+  .complete-button {
+    background-color: #28a745; /* Green background */
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .complete-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  

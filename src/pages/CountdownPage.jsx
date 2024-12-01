@@ -8,6 +8,7 @@ import {
   selectCurrentTasks,
   selectCompletedTasks,
   updateTask,
+  clearTasks
 } from '../store/taskSlice';
 import { selectUserIdentifier } from '../store/userSlice';
 import './CountdownPage.css';
@@ -54,6 +55,9 @@ const CountdownPage = () => {
     navigate('/task-creation');
   };
 
+  const handleClearAllTasks = () => {
+  dispatch(clearTasks());
+  };
   return (
     <div className="countdown-page">
       <h1 className="welcome-text">Welcome, {userIdentifier || 'Guest'}!</h1>
@@ -122,12 +126,14 @@ const CountdownPage = () => {
               Run All
             </button>
           )}
-         
-        </div>
+       </div>
         
       </div>
       <button className="go-back-button" onClick={handleGoBack}>
         ⟸ Go back to Preview Task List
+      </button>
+      <button className="clear-all-button" onClick={handleClearAllTasks}>
+      ✖️ Clear all Created Tasks
       </button>
     </div>
   );

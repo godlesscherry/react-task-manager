@@ -18,11 +18,10 @@ const taskSlice = createSlice({
     deleteTask: (state, action) => {
       const taskIndex = state.currentTaskList.findIndex((task) => task.id === action.payload);
       if (taskIndex !== -1) {
-        state.currentTaskList.splice(taskIndex, 1); // Remove the task
-        // Reorder the remaining tasks to maintain sequential IDs
+        state.currentTaskList.splice(taskIndex, 1);
         state.currentTaskList = state.currentTaskList.map((task, index) => ({
           ...task,
-          id: index + 1, // Reset IDs to sequential order
+          id: index + 1,
         }));
       }
     },
@@ -37,29 +36,20 @@ const taskSlice = createSlice({
       if (taskIndex !== -1) {
         const task = state.currentTaskList[taskIndex];
         task.state = 'completed';
-        task.countdown = 0; // Set countdown to 0 on completion
+        task.countdown = 0;
         state.completedTaskList.push(task);
-        state.currentTaskList.splice(taskIndex, 1); // Remove from current list
+        state.currentTaskList.splice(taskIndex, 1);
       }
     },
     restartTask: (state, action) => {
       const taskIndex = state.completedTaskList.findIndex((task) => task.id === action.payload);
       if (taskIndex !== -1) {
         const task = state.completedTaskList[taskIndex];
-        task.state = 'pending';
-        task.countdown = task.originalCountdown; // Reset countdown to originalCountdown
-        state.completedTaskList.splice(taskIndex, 1); // Remove from completed list
-        state.currentTaskList.push(task); // Add the task at the end of currentTaskList
-        // Reorder IDs for all tasks in currentTaskList
-        state.currentTaskList = state.currentTaskList.map((task, index) => ({
-          ...task,
-          id: index + 1, // Assign sequential IDs
-        }));
+        task.state = 'running';
+        task.countdown = task.originalCountdown;
+        state.completedTaskList.splice(taskIndex, 1);
+        state.currentTaskList.push(task);
       }
-    },
-    
-    resetTasks: (state, action) => {
-      state.currentTaskList = action.payload; // Replace the current task list with the reordered tasks
     },
     updateTask: (state, action) => {
       const { id, changes } = action.payload;
@@ -82,7 +72,11 @@ const taskSlice = createSlice({
           return null;
         }
         return task;
-      }).filter(Boolean); // Remove null tasks
+      }).filter(Boolean);
+    },
+    clearTasks: (state) => {
+      state.currentTaskList = [];
+      state.completedTaskList = [];
     },
   },
 });
@@ -93,9 +87,9 @@ export const {
   activateTask,
   completeTask,
   restartTask,
-  resetTasks,
   updateTask,
   decrementActiveTaskCountdown,
+  clearTasks,
 } = taskSlice.actions;
 
 export const selectCurrentTasks = (state) => state.tasks.currentTaskList;

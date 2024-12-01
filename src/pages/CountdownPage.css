@@ -117,7 +117,7 @@
 
 .task-item.running {
   background-color: rgba(255, 193, 7, 0.2); /* Light yellow background */
-  border: 2px solid #ffc107; /* Yellow border for running tasks */
+  border: 2px solid #0ce24c; /* Yellow border for running tasks */
 }
 
 .task-item.completed {
@@ -213,3 +213,20 @@
 .go-back-button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
+
+.clear-all-button {
+  background-color: #ff4d4d; /* Red */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.clear-all-button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+}
+

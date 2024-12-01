@@ -18,7 +18,10 @@ const TaskCreationPage = () => {
   const [taskColor, setTaskColor] = useState('#ffffff'); // Default color
   const [taskCountdown, setTaskCountdown] = useState(''); // Countdown timer
   const [error, setError] = useState('');
-
+   // Calculate the next task ID by considering all tasks
+   const allTasks = [...taskPreview, ...useSelector((state) => state.tasks.completedTaskList)];
+   const nextTaskId = allTasks.length > 0 ? Math.max(...allTasks.map((task) => task.id)) + 1 : 1;
+   
   const handleAddTask = () => {
     if (taskPreview.length >= MAX_TASKS) {
       setError('You have reached the maximum number of tasks (10).');
@@ -43,8 +46,6 @@ const TaskCreationPage = () => {
 
     setError('');
 
-    // Generate the next task ID
-    const nextTaskId = taskPreview.length + 1;
 
     // Add task to Redux store
     dispatch(

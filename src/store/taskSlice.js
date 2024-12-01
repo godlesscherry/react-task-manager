@@ -16,8 +16,16 @@ const taskSlice = createSlice({
       });
     },
     deleteTask: (state, action) => {
-        state.currentTaskList = state.currentTaskList.filter((task) => task.id !== action.payload);
-      },
+      const taskIndex = state.currentTaskList.findIndex((task) => task.id === action.payload);
+      if (taskIndex !== -1) {
+        state.currentTaskList.splice(taskIndex, 1); // Remove the task
+        // Reorder the remaining tasks to maintain sequential IDs
+        state.currentTaskList = state.currentTaskList.map((task, index) => ({
+          ...task,
+          id: index + 1, // Reset IDs to sequential order
+        }));
+      }
+    },
     activateTask: (state, action) => {
       const taskIndex = state.currentTaskList.findIndex((task) => task.id === action.payload);
       if (taskIndex !== -1) {
@@ -46,13 +54,23 @@ const taskSlice = createSlice({
     },
     resetTasks: (state, action) => {
       state.currentTaskList = action.payload; // Replace the current task list with the reordered tasks
-    },    
+    },
+    updateTask: (state, action) => {
+      const { id, changes } = action.payload;
+      const taskIndex = state.currentTaskList.findIndex((task) => task.id === id);
+      if (taskIndex !== -1) {
+        state.currentTaskList[taskIndex] = {
+          ...state.currentTaskList[taskIndex],
+          ...changes,
+        };
+      }
+    },
     decrementActiveTaskCountdown: (state) => {
       state.currentTaskList = state.currentTaskList.map((task) => {
-        if (task.state === 'active' && task.countdown > 0) {
+        if (task.state === 'running' && task.countdown > 0) {
           return { ...task, countdown: task.countdown - 1 };
         }
-        if (task.state === 'active' && task.countdown === 0) {
+        if (task.state === 'running' && task.countdown === 0) {
           task.state = 'completed';
           state.completedTaskList.push(task);
           return null;
@@ -69,6 +87,8 @@ export const {
   activateTask,
   completeTask,
   restartTask,
+  resetTasks,
+  updateTask,
   decrementActiveTaskCountdown,
 } = taskSlice.actions;
 

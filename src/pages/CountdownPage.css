@@ -1,148 +1,215 @@
 /* Full-page layout */
 .countdown-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    min-height: 100vh;
-    background-color: #000; /* Black background */
-    color: #fff;
-    padding: 20px;
-    gap: 20px;
-  }
-  
-  /* Welcome Text */
-  .welcome-text {
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 20px;
-  }
-  
-  /* Task Container */
-  .task-container {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    gap: 20px;
-  }
-  
-  /* Current Task Box */
-  .current-task-box,
-  .active-task-box,
-  .completed-task-box {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  min-height: 100vh;
+  background-color: #000; /* Black background */
+  color: #fff;
+  padding: 20px;
+  gap: 20px;
+}
 
-    
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-    text-align: center;
-  }
-  
-  .current-task-box h2,
-  .active-task-box h2,
-  .completed-task-box h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: #000;
-  }
-  
-  /* Task List Styling */
-  .task-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 300px;
-    overflow-y: auto; /* Add scroll for long lists */
-  }
-  
-  /* Task Item Styling */
-  .task-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    border-radius: 8px;
-    border: 2px solid #000; /* Solid black border */
-    color: #000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  }
-  
-  .task-item.completed {
-    color: #666; /* Lighter text for completed tasks */
-    font-style: italic; /* Indicate completion */
-  }
-  .task-item.active {
-    background-color: rgba(0, 123, 255, 0.2); /* Light blue background */
-    border: 2px solid #007bff; /* Blue border for active tasks */
-  }
-  
-  /* Task Details */
-  .task-details {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex: 1;
-    padding: 10px;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  
-  /* Complete Button */
-  .complete-button {
-    background-color: #28a745; /* Green background */
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-  }
-  /* Restart Button for Completed Tasks */
+/* Welcome Text */
+.welcome-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* Task Container */
+.task-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  gap: 20px;
+}
+
+/* Task Box Styling */
+.current-task-box,
+.countdown-task-box,
+.completed-task-box {
+  background-color: #fff;
+  padding: 20px;
+  padding-bottom: 60px;
+  border-radius: 10px;
+  flex: 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  position: relative; /* For positioning Run All button */
+}
+
+.current-task-box h2,
+.countdown-task-box h2,
+.completed-task-box h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #000;
+}
+/* Run All Button Styling */
+.run-all-button {
+  position: absolute; /* Position relative to the parent */
+  bottom: 10px; /* Distance from the bottom */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center alignment */
+  background-color: #04850e; 
+  color: #fff; /* White text */
+  border: none;
+  padding: 10px 20px; /* Button padding */
+  font-size: 16px; /* Font size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s;
+}
+
+/* Hover Effect */
+.run-all-button:hover {
+  background-color: #265348; /* Darker blue on hover */
+}
+
+/* Add margin to the list to avoid overlapping */
+.countdown-task-box .task-list {
+  margin-bottom: 50px; /* Space above the Run All button */
+}
+
+/* Adjust other buttons for consistency */
 .restart-button {
-    background-color: #007bff; /* Blue background */
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-  }
-  
-  .restart-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-  }
-  
-  .complete-button:hover {
-    background-color: #218838; /* Darker green on hover */
-  }
-  
-  /* Styling for Completed Tasks */
-  .completed-task-box .task-item {
-    background-color: rgba(0, 0, 0, 0.1);
-    border-color: #ddd;
-  }
-  
-  /* Scrollbar Styling */
-  .task-list::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  .task-list::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 4px;
-  }
-  
-  .task-list::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
-  
+  background-color: #28a745; /* Green background */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.restart-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Task List Styling */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 300px;
+  overflow-y: auto; /* Add scroll for long lists */
+}
+
+/* Task Item Styling */
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #000; /* Solid black border */
+  color: #000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+.task-item.running {
+  background-color: rgba(255, 193, 7, 0.2); /* Light yellow background */
+  border: 2px solid #ffc107; /* Yellow border for running tasks */
+}
+
+.task-item.completed {
+  color: #666; /* Lighter text for completed tasks */
+  font-style: italic; /* Indicate completion */
+  background-color: rgba(108, 117, 125, 0.1); /* Light gray background */
+  border: 2px solid #6c757d; /* Gray border */
+}
+
+.task-item.active {
+  background-color: rgba(0, 123, 255, 0.2); /* Light blue background */
+  border: 2px solid #007bff; /* Blue border for active tasks */
+}
+
+/* Task Details */
+.task-details {
+  display: grid;
+  grid-template-columns: 1fr 3fr 2fr 2fr 2fr; /* Adjust columns for better alignment */
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Scrollbar Styling */
+.task-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.task-list::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Button Styling */
+.activate-button {
+  background-color: #007bff; /* Blue background */
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.activate-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.complete-button {
+  background-color: #28a745; /* Green background */
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.complete-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Error Message Styling */
+.error-text {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Go Back Button */
+.go-back-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.go-back-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

@@ -23,6 +23,11 @@ const TaskCreationPage = () => {
   // Merge current and completed tasks
   const allTasks = [...taskPreview, ...completedTasks];
 
+   // Determine if there are tasks with states active, running, or completed
+   const hasActiveOrRunningOrCompletedTasks = allTasks.some((task) =>
+    ['active', 'running', 'completed'].includes(task.state)
+  );
+
   // Calculate the next task ID by considering all tasks
   const nextTaskId = allTasks.length > 0 ? Math.max(...allTasks.map((task) => task.id)) + 1 : 1;
 
@@ -101,7 +106,7 @@ const TaskCreationPage = () => {
       <div className="task-container">
         <div className="create-task-box">
           <h2>Create Task</h2>
-          <div className="info-icon">ℹ️ You can create a maximum of 10 tasks in a tasklist</div>
+          <div className="info-icon">ℹ️ You can create a maximum of 10 tasks</div>
           <div className="form-group">
             <input
               type="text"
@@ -149,12 +154,13 @@ const TaskCreationPage = () => {
             <p className="error-text">Maximum number of tasks reached. Please delete a task to add more.</p>
           )}
           <button className="next-button" onClick={handleNext}>
-            Next
+          {hasActiveOrRunningOrCompletedTasks ? 'Resume' : 'Next'}
           </button>
         </div>
 
         <div className="task-preview-box">
           <h2>Preview Task List</h2>
+          <div className="info-icon">ℹ️ Only pending tasks can be deleted, Click `Next` to review tasks</div>
           <ul className="task-list">
             {allTasks.map((task) => (
               <li

@@ -5,6 +5,8 @@ import { selectUserIdentifier } from '../store/userSlice'; // Import user select
 import { useNavigate } from 'react-router-dom';
 import './TaskCreationPage.css'; // Import the CSS file
 
+const MAX_TASKS = 10; // Define the maximum number of tasks allowed
+
 const TaskCreationPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,6 +20,11 @@ const TaskCreationPage = () => {
   const [error, setError] = useState('');
 
   const handleAddTask = () => {
+    if (taskPreview.length >= MAX_TASKS) {
+      setError('You have reached the maximum number of tasks (10).');
+      return;
+    }
+
     const errors = [];
     if (!taskName.trim()) {
       errors.push('Task name is required.');
@@ -64,6 +71,9 @@ const TaskCreationPage = () => {
 
   const handleDeleteTask = (taskId) => {
     dispatch(deleteTask(taskId));
+    if (taskPreview.length <= MAX_TASKS) {
+      setError(''); // Clear error if the number of tasks is below the limit
+    }
   };
 
   return (
@@ -83,6 +93,7 @@ const TaskCreationPage = () => {
               value={taskName}
               onChange={(e) => setTaskName(e.target.value)}
               required
+              disabled={taskPreview.length >= MAX_TASKS} // Disable input if the limit is reached
             />
           </div>
           <div className="form-group color-group">
@@ -93,6 +104,7 @@ const TaskCreationPage = () => {
               value={taskColor}
               onChange={(e) => setTaskColor(e.target.value)}
               required
+              disabled={taskPreview.length >= MAX_TASKS} // Disable input if the limit is reached
             />
           </div>
           <div className="form-group">
@@ -103,19 +115,24 @@ const TaskCreationPage = () => {
               value={taskCountdown}
               onChange={(e) => setTaskCountdown(e.target.value)}
               required
+              disabled={taskPreview.length >= MAX_TASKS} // Disable input if the limit is reached
             />
           </div>
           {error && <p className="error-text">{error}</p>}
-          <div className="button-group">
-            <button className="task-button" onClick={handleAddTask}>
-              Add Task
-            </button>
-            <button className="clear-button" onClick={handleClear}>
-              Clear
-            </button>
-          </div>
+          {taskPreview.length < MAX_TASKS ? (
+            <div className="button-group">
+              <button className="task-button" onClick={handleAddTask}>
+                Add Task
+              </button>
+              <button className="clear-button" onClick={handleClear}>
+                Clear
+              </button>
+            </div>
+          ) : (
+            <p className="error-text">Maximum number of tasks reached. Please delete a task to add more.</p>
+          )}
           <button className="next-button" onClick={handleNext}>
-            Next 
+            Next
           </button>
         </div>
 

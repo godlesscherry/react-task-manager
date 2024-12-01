@@ -54,7 +54,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="login-box">
-        <h1 className="login-title">Log in</h1>
+        <h1 className="login-title">Log In</h1>
         {errors.general && <p className="error-text">{errors.general}</p>}
         <input
           type="email"
@@ -91,10 +91,13 @@ const LoginPage = () => {
           />
           {errors.password && <p className="error-text">{errors.password}</p>}
         </div>
+        <div className="info-icon">ℹ️ Login with your email id or username</div>
         <button className="login-button" onClick={handleLogin}>
           Log In
         </button>
-        <div className="info-icon">ℹ️ Login with your email id or username</div>
+        <button className="signup-button" onClick={handleLogin}>
+          Sign Up
+        </button>
       </div>
     </div>
   );

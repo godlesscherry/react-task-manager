@@ -83,7 +83,7 @@ const CountdownPage = () => {
         </div>
       </div>
       <button className="go-back-button" onClick={handleGoBack}>
-        Go Back
+      ⟸ Go back to Preview Task List
       </button>
     </div>
   );

@@ -97,7 +97,7 @@ const TaskCreationPage = () => {
           <div className="form-group">
             <input
               type="number"
-              placeholder="Countdown Timer (seconds)"
+              placeholder="Time to finish (seconds)"
               className="form-input"
               value={taskCountdown}
               onChange={(e) => setTaskCountdown(e.target.value)}
@@ -128,7 +128,7 @@ const TaskCreationPage = () => {
                 <div className="task-details">
                   <span className="task-id">ID: {task.id}</span>
                   <span className="task-name">Task Name: {task.name}</span>
-                  <span className="task-countdown">Countdown: {task.countdown}s</span>
+                  <span className="task-countdown">{task.countdown} seconds</span>
                   <span className="task-state">State: {task.state}</span>
                 </div>
                 {task.state === 'pending' && (

@@ -72,7 +72,7 @@ const CountdownPage = () => {
         <div className="current-task-box">
           <h2>Review Task List</h2>
           <div className="info-icon">
-            ℹ️ `Activate` pending tasks to start countdown
+            ℹ️ `Activate` pending tasks to start the task
           </div>
           <ul className="task-list">
             {currentTaskList.map((task) => (

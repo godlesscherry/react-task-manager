@@ -12,16 +12,20 @@ const TaskCreationPage = () => {
   const navigate = useNavigate();
 
   const taskPreview = useSelector((state) => state.tasks.currentTaskList); // Get current tasks from Redux
+  const completedTasks = useSelector((state) => state.tasks.completedTaskList); // Get completed tasks from Redux
   const userIdentifier = useSelector(selectUserIdentifier);
 
   const [taskName, setTaskName] = useState('');
   const [taskColor, setTaskColor] = useState('#ffffff'); // Default color
   const [taskCountdown, setTaskCountdown] = useState(''); // Countdown timer
   const [error, setError] = useState('');
-   // Calculate the next task ID by considering all tasks
-   const allTasks = [...taskPreview, ...useSelector((state) => state.tasks.completedTaskList)];
-   const nextTaskId = allTasks.length > 0 ? Math.max(...allTasks.map((task) => task.id)) + 1 : 1;
-   
+
+  // Merge current and completed tasks
+  const allTasks = [...taskPreview, ...completedTasks];
+
+  // Calculate the next task ID by considering all tasks
+  const nextTaskId = allTasks.length > 0 ? Math.max(...allTasks.map((task) => task.id)) + 1 : 1;
+
   const handleAddTask = () => {
     if (taskPreview.length >= MAX_TASKS) {
       setError('You have reached the maximum number of tasks (10).');
@@ -45,7 +49,6 @@ const TaskCreationPage = () => {
     }
 
     setError('');
-
 
     // Add task to Redux store
     dispatch(
@@ -74,22 +77,21 @@ const TaskCreationPage = () => {
   };
 
   const handleDeleteTask = (taskId) => {
-    // Filter the task to be deleted and reorder remaining tasks
     const reorderedTasks = taskPreview
       .filter((task) => task.id !== taskId) // Remove the task with the given ID
       .map((task, index) => ({
         ...task,
         id: index + 1, // Reassign IDs sequentially
       }));
-  
+
     // Dispatch a reset of the entire task list with reordered tasks
     dispatch({ type: 'tasks/resetTasks', payload: reorderedTasks });
-  
+
     // Clear the error if tasks drop below the limit
     if (reorderedTasks.length < MAX_TASKS) {
       setError('');
     }
-  };  
+  };
 
   return (
     <div className="task-creation-page">
@@ -154,10 +156,10 @@ const TaskCreationPage = () => {
         <div className="task-preview-box">
           <h2>Preview Task List</h2>
           <ul className="task-list">
-            {taskPreview.map((task) => (
+            {allTasks.map((task) => (
               <li
                 key={task.id}
-                className="task-item"
+                className={`task-item ${task.state === 'completed' ? 'completed' : ''}`}
                 style={{
                   backgroundColor: `${task.color}66`, // Background with 40% opacity
                 }}

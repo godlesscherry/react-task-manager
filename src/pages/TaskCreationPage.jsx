@@ -43,10 +43,13 @@ const TaskCreationPage = () => {
 
     setError('');
 
+    // Generate the next task ID
+    const nextTaskId = taskPreview.length + 1;
+
     // Add task to Redux store
     dispatch(
       addTask({
-        id: Date.now(), // Unique ID for the task
+        id: nextTaskId, // Incremental ID
         name: taskName,
         color: taskColor,
         countdown: parseInt(taskCountdown, 10),
@@ -70,11 +73,22 @@ const TaskCreationPage = () => {
   };
 
   const handleDeleteTask = (taskId) => {
-    dispatch(deleteTask(taskId));
-    if (taskPreview.length <= MAX_TASKS) {
-      setError(''); // Clear error if the number of tasks is below the limit
+    // Filter the task to be deleted and reorder remaining tasks
+    const reorderedTasks = taskPreview
+      .filter((task) => task.id !== taskId) // Remove the task with the given ID
+      .map((task, index) => ({
+        ...task,
+        id: index + 1, // Reassign IDs sequentially
+      }));
+  
+    // Dispatch a reset of the entire task list with reordered tasks
+    dispatch({ type: 'tasks/resetTasks', payload: reorderedTasks });
+  
+    // Clear the error if tasks drop below the limit
+    if (reorderedTasks.length < MAX_TASKS) {
+      setError('');
     }
-  };
+  };  
 
   return (
     <div className="task-creation-page">

@@ -44,6 +44,9 @@ const taskSlice = createSlice({
         state.completedTaskList.splice(taskIndex, 1); // Remove from completed list
       }
     },
+    resetTasks: (state, action) => {
+      state.currentTaskList = action.payload; // Replace the current task list with the reordered tasks
+    },    
     decrementActiveTaskCountdown: (state) => {
       state.currentTaskList = state.currentTaskList.map((task) => {
         if (task.state === 'active' && task.countdown > 0) {

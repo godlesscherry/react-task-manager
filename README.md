@@ -37,31 +37,6 @@ The **Task Manager Application** is a React-based tool for managing tasks with c
 
 ---
 
-### **Pending Features**
-The following features are currently not implemented but can be added with additional time:
-
-1. **Task ID and Order Management:**
-   - Ensure task IDs follow the order of creation.
-   - Update the task order dynamically when tasks are deleted.
-
-2. **Animations:**
-   - Add animations for task activation to enhance the user experience.
-
-3. **Marking Tasks as Ready:**
-   - Restrict users from starting tasks independently.
-   - Require all tasks to be marked "ready" before activation.
-
-4. **Pause Timers:**
-   - Ensure task timers pause automatically when navigating away from the countdown page.
-
-5. **UI Enhancements:**
-   - Replace the delete button with a cross icon.
-   - Display countdown as "10 seconds" instead of "10s."
-
-6. **Navigation Updates:**
-   - Change the "Next" button to "Resume" when navigating back to the countdown page.
-
----
 
 ## Installation
 

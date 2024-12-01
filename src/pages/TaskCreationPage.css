@@ -243,21 +243,27 @@
   color: #cc0000; /* Darker red on hover */
 }
 
-/* Next Button Styling */
+/* Updated Next Button Styling */
 .next-button {
-  position: absolute; /* Positioning at the bottom-right */
-  bottom: 10px;
-  right: 10px;
-  background-color: #007bff;
+  display: block; /* Ensures the button takes up its own line */
+  margin-top: 30px; /* Add space above the button */
+  width: 100%; /* Full width of the container */
+  background-color: #0f4927;
   color: #fff;
   border: none;
-  padding: 10px 20px;
-  font-size: 14px;
+  padding: 12px; /* Increased padding for consistency */
+  font-size: 16px; /* Increased font size for readability */
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
+  text-align: center; /* Center-align the text */
 }
+
+.next-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
 
 .next-button:hover {
   background-color: #0056b3; /* Darker blue on hover */
@@ -287,3 +293,11 @@
   font-size: 14px;
   margin-top: 5px;
 }
+  /* Info Icon Styling */
+  .info-icon {
+    text-align: center;
+    color: #555;
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }

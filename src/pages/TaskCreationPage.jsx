@@ -74,6 +74,7 @@ const TaskCreationPage = () => {
       <div className="task-container">
         <div className="create-task-box">
           <h2>Create Task</h2>
+          <div className="info-icon">ℹ️ You can create a maximum of 10 tasks in a tasklist</div>
           <div className="form-group">
             <input
               type="text"
@@ -113,7 +114,11 @@ const TaskCreationPage = () => {
               Clear
             </button>
           </div>
+          <button className="next-button" onClick={handleNext}>
+            Next 
+          </button>
         </div>
+
         <div className="task-preview-box">
           <h2>Preview Task List</h2>
           <ul className="task-list">
@@ -128,7 +133,7 @@ const TaskCreationPage = () => {
                 <div className="task-details">
                   <span className="task-id">ID: {task.id}</span>
                   <span className="task-name">Task Name: {task.name}</span>
-                  <span className="task-countdown">{task.countdown} seconds</span>
+                  <span className="task-countdown">Countdown: {task.countdown}s</span>
                   <span className="task-state">State: {task.state}</span>
                 </div>
                 {task.state === 'pending' && (
@@ -142,9 +147,6 @@ const TaskCreationPage = () => {
               </li>
             ))}
           </ul>
-          <button className="next-button" onClick={handleNext}>
-            Next
-          </button>
         </div>
       </div>
     </div>

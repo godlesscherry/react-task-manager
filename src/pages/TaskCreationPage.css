@@ -248,7 +248,7 @@
   display: block; /* Ensures the button takes up its own line */
   margin-top: 30px; /* Add space above the button */
   width: 100%; /* Full width of the container */
-  background-color: #0f4927;
+  background-color: #000000;
   color: #fff;
   border: none;
   padding: 12px; /* Increased padding for consistency */

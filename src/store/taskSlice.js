@@ -48,10 +48,16 @@ const taskSlice = createSlice({
         const task = state.completedTaskList[taskIndex];
         task.state = 'pending';
         task.countdown = task.originalCountdown; // Reset countdown to originalCountdown
-        state.currentTaskList.push(task);
         state.completedTaskList.splice(taskIndex, 1); // Remove from completed list
+        state.currentTaskList.push(task); // Add the task at the end of currentTaskList
+        // Reorder IDs for all tasks in currentTaskList
+        state.currentTaskList = state.currentTaskList.map((task, index) => ({
+          ...task,
+          id: index + 1, // Assign sequential IDs
+        }));
       }
     },
+    
     resetTasks: (state, action) => {
       state.currentTaskList = action.payload; // Replace the current task list with the reordered tasks
     },
